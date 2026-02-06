@@ -51,8 +51,11 @@ src_prepare() {
 src_configure() {
 	# netlib.c:2292:5: warning: implicit declaration of function 'sched_setaffinity'
 	# nettest_omni.c:2943:5: warning: implicit declaration of function 'splice'
-	# TODO: drop once https://github.com/HewlettPackard/netperf/pull/73 merged
+	# TODO: drop once https://github.com/HewlettPackard/netperf/pull/73 is merged
 	append-cppflags -D_GNU_SOURCE
+	# nettest_bsd.c:4497:19: error: too many arguments to function 'alloc_sendfile_buf_ring'; expected 0, have 4
+	# TODO: drop once https://github.com/HewlettPackard/netperf/pull/86 is merged
+	append-cflags -std=gnu17
 
 	econf \
 		$(use_enable demo) \
