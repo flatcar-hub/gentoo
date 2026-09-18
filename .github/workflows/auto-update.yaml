@@ -1,0 +1,20 @@
+name: Automatically rebase "master" and all "tracking-" branches to latest upstream
+
+on:
+  schedule:
+    - cron:  '1 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebase-master-and-all-tracking-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update master and all tracking branches
+        uses: actions/checkout@v7
+        with:
+          path: gentoo
+      - run: |
+          gentoo/.github/workflows/rebase-to-upstream.sh
