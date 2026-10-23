@@ -2,7 +2,9 @@ name: Automatically rebase "master" and all "tracking-" branches to latest upstr
 
 on:
   schedule:
-    - cron:  '1 * * * *'
+    - cron:  '1 * * * *'  # primary, every 1st minute of the hour
+    - cron:  '20 * * * *' # fallback 1, every 20th minute
+    - cron:  '40 */2 * * *' # fallback 2, every 40th minute of every 2nd hour
   workflow_dispatch:
 
 permissions:
